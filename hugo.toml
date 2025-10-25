@@ -1,0 +1,15 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Varian-T!'
+theme = "LucentLink-Hugo"
+
+[params]
+  description     = "A clean, customizable, and responsive Linktree-style landing page built using HTML, Tailwind CSS, and Font Awesome."
+  googleAnalytics = ""    # your GA ID, if any
+
+[outputs]
+  home = ["HTML"]
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
