@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://varian-t.github.io/variant/'
 languageCode = 'en-us'
 title = 'Varian-T!'
 theme = "LucentLink-Hugo"
