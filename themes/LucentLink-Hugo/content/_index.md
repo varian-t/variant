@@ -36,8 +36,7 @@ links:
 youtubeMusicPlaylist:
   iframe: '<iframe width="90%" height="315" src="https://www.youtube-nocookie.com/embed/videoseries?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj" frameborder="15" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>'
 
-  youtubeMusicPlaylist:
-  iframe: '<iframe width="100%" height="215"  src="https://www.youtube-nocookie.com/embed/videoseries?list=PLzQn08BVqN_DCXI-Lb05v6wWeNKWoDS8c" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>'
+
 
 
 
