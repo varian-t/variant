@@ -1,0 +1,146 @@
+<div class="vn-container" onclick="vnNext()">
+  
+  <!-- BACKGROUND -->
+  <div class="vn-background" id="vnBackground"></div>
+
+
+  <!-- SPRITE -->
+  <div class="vn-sprite">
+    <img id="vnSprite" src="" alt="sprite" />
+  </div>
+
+  <!-- TEXT BOX -->
+  <div class="vn-textbox" id="vnText">
+    <div class="vn-next-arrow" id="vnNextArrow">▶</div>
+  </div>
+
+</div>
+
+<script>
+// Dialogue
+const vnScript = [
+  {
+    text: "Welcome to my silly corner on the internet!",
+    sprite: "/sprites/hehe.png",
+    background: "/bg/none_yet.png"
+  },
+  {
+
+    text: "I'm Varian, an artist and programmer and enjoy sharing what I love to do!",
+    sprite: "/sprites/hehe.png",
+    background: "/bg/none_yet.png"
+  },
+  {
+
+    text: "I appreciate any support you leave, it means a lot to me. Thanks for stopping by!",
+    sprite: "/sprites/hehe.png",
+    background: "/bg/none_yet.png"
+  }
+];
+
+let vnIndex = 0;
+
+function vnRender() {
+  const line = vnScript[vnIndex];
+
+
+  document.getElementById("vnText").childNodes[0].nodeValue = line.text;
+  document.getElementById("vnSprite").src = line.sprite;
+  document.getElementById("vnBackground").style.backgroundImage =
+    `url(${line.background})`;
+}
+
+function vnNext() {
+  vnIndex++;
+  if (vnIndex >= vnScript.length) vnIndex = 0;
+  vnRender();
+}
+
+// first render
+document.getElementById("vnText").appendChild(document.createTextNode(""));
+vnRender();
+</script>
+
+<style>
+.vn-container {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-top: 3px;
+}
+
+/* BACKGROUND */
+.vn-background {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 350px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  opacity: 0.6;
+  z-index: -1;
+  filter: blur(2px) brightness(0.85);
+}
+
+.vn-name {
+  background: rgba(19, 1, 59, 0.89);
+  border: 3px solid rgba(255,255,255,0.7);
+  padding: 8px 12px;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.vn-sprite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 220px;
+  z-index: 2;
+}
+
+.vn-sprite img {
+  max-width: 300px;
+  border-radius: 12px;
+  margin-top: 10px;
+  transition: transform 1.0s ease;
+}
+
+/* grow sprite slightly on click */
+.vn-container:active .vn-sprite img {
+  transform: scale(1.3);
+}
+
+.vn-textbox {
+  background: rgba(19, 1, 59, 0.89);
+  border: 3px solid rgba(255,255,255,0.7);
+  padding: 14px 18px;
+  margin-top: 20px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+/* animated NEXT arrow */
+.vn-next-arrow {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  opacity: 0.7;
+  font-size: 22px;
+  animation: bob 0.75s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes bob {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-6px); }
+}
+</style>

@@ -1,0 +1,82 @@
+<canvas id="bgCanvas"></canvas>
+
+<script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
+<script>
+let renderer, scene, camera, material;
+
+function init() {
+  renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById("bgCanvas"),
+    antialias: true
+  });
+
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  scene = new THREE.Scene();
+  camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+
+  let geometry = new THREE.PlaneGeometry(2,2);
+
+  material = new THREE.ShaderMaterial({
+    
+    uniforms: {
+      u_time: { value: 0.0 },
+      u_tiles: { value: 10.0 },
+      u_speed: { value: 0.02 },
+      u_color1: { value: new THREE.Color(0x00BDEC) },
+      u_color2: { value: new THREE.Color(0x13013B) },
+      u_color3: { value: new THREE.Color(0xEC045D) },
+      u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+    },
+    vertexShader: `
+      void main() {
+        gl_Position = vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+  uniform float u_time;
+  uniform float u_tiles;
+  uniform float u_speed;
+  uniform vec3 u_color1;
+  uniform vec3 u_color2;
+  uniform vec3 u_color3;
+  uniform vec2 u_resolution;
+
+  void main() {
+    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+    uv += u_time * u_speed;
+
+    vec2 cell = floor(uv * u_tiles);
+    float check = mod(cell.x + cell.y, 2.0);
+
+    float gradientFactor = fract(uv.y * 5.0 + u_time); // vertical animated gradient
+
+    vec3 gradient = mix(u_color1, u_color3, gradientFactor);
+
+    vec3 solid = u_color2;
+    vec3 finalColor = (check < 1.0) ? gradient : solid;
+
+    gl_FragColor = vec4(finalColor, 1.0);
+  }
+`
+
+  });
+
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+
+  animate();
+}
+
+function animate(time) {
+  material.uniforms.u_time.value = time * 0.001;
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+
+init();
+window.addEventListener("resize", () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  material.uniforms.u_resolution.value = new THREE.Vector2(window.innerWidth, window.innerHeight)
+});
+</script>

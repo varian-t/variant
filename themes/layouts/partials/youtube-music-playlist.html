@@ -1,0 +1,13 @@
+{{/* layouts/partials/youtube-music-playlist.html */}}
+{{ with .Params.youtubeMusicPlaylist.iframe }}
+<div class="youtube-widget pulsating-box border-trace h-auto rounded-lg p-6 mb-8 border text-white mt-6"
+     style="background: rgba(11, 0, 36, 0.89); backdrop-filter: blur(5px); border: 3px solid rgba(88, 8, 105, 0.501);">
+  <div class="flex items-center mb-4">
+    <i class="fab fa-youtube text-2xl mr-3"></i>
+    <h3 class="text-xl font-bold">My current fav</h3>
+  </div>
+  <div class="aspect-video rounded-lg overflow-hidden">
+    {{ . | safeHTML }}
+  </div>
+</div>
+{{ end }}
